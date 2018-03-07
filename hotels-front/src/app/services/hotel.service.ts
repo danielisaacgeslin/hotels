@@ -15,7 +15,7 @@ export interface ListRequestArgs {
 @Injectable()
 export class HotelService {
   private rootUrl: string = `${env.api.root}/${env.api.hotels}`;
-  private maxPerPage: number = 20;
+  private maxPerPage: number = 10;
   constructor(private http: HttpClient) { }
 
   public getList(args: ListRequestArgs): Observable<Pagination<Hotel>> {

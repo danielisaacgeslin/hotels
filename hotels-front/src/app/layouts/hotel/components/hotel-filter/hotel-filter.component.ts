@@ -14,7 +14,7 @@ export interface HotelFilter {
   styleUrls: ['hotel-filter.component.scss']
 })
 export class HotelFilterComponent implements OnInit, OnDestroy {
-  @Input() debounceTime: number = 500;
+  @Input() debounceTime: number = 300;
   @Output() filter: EventEmitter<HotelFilter> = new EventEmitter();
   public formGroup: FormGroup = new FormGroup({
     name: new FormControl(),

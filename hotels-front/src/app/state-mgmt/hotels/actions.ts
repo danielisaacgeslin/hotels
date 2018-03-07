@@ -15,5 +15,5 @@ export class FetchHotels implements Action {
 
 export class SetHotels implements Action {
   public type: string = actionTypes.SET_HOTELS;
-  constructor(public payload: Hotel[]) { }
+  constructor(public payload: { list: Hotel[], count: number }) { }
 }

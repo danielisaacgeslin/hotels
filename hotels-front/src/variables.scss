@@ -1,0 +1,12 @@
+$color-primary: #002c77;
+$color-secondary: #EA6422;
+$color-tertiary: #0e727c;
+$color-light-gray: #f8f8f8;
+$color-white: #ffffff;
+$color-gold: gold;
+
+%shadow {
+  -webkit-box-shadow: -8px 14px 24px -16px rgba(0,0,0,0.96);
+  -moz-box-shadow: -8px 14px 24px -16px rgba(0,0,0,0.96);
+  box-shadow: -8px 14px 24px -16px rgba(0,0,0,0.96);
+}

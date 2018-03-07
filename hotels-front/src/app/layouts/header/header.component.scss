@@ -1,0 +1,7 @@
+@import '../../../variables';
+
+header {
+  background-color: $color-primary;
+  border-bottom: 2px $color-tertiary solid;
+  padding: 15px 0;
+}

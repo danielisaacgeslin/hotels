@@ -15,7 +15,7 @@ export class Effects {
   public fetchHotels$: Observable<Action> = this.actions$
     .ofType<FetchHotels>(actionTypes.FETCH_HOTELS).pipe(
       switchMap(action => this.hotelService.getList(action.payload)),
-      map(res => new SetHotels(res.list))
+      map(res => new SetHotels({ list: res.list, count: res.count }))
     );
 
   constructor(

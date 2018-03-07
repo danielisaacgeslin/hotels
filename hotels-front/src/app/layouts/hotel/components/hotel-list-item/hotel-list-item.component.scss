@@ -1,0 +1,13 @@
+@import '../../../../../variables';
+
+.list-item {
+  @extend %shadow;
+  background-color: $color-white;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+
+  .title {
+    font-weight: bold;
+    color: $color-tertiary;
+  }
+}

@@ -1,1 +1,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import './variables';
+
+body {
+  background-color: $color-light-gray;
+  scroll-behavior: smooth;
+}

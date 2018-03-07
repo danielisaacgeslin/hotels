@@ -1,12 +1,35 @@
-<form [formGroup]="formGroup">
-  <input formControlName="name" type="text">
-  <!-- <input formControlName="stars" type="number"> -->
+<form class="form" [formGroup]="formGroup">
   <div>
-    <input type="radio" [value]="0" formControlName="stars">all
-    <input type="radio" [value]="1" formControlName="stars">1
-    <input type="radio" [value]="2" formControlName="stars">2
-    <input type="radio" [value]="3" formControlName="stars">3
-    <input type="radio" [value]="4" formControlName="stars">4
-    <input type="radio" [value]="5" formControlName="stars">5
+    <input
+      placeholder="Igrese el nombre del hotel"
+      class="form-control"
+      formControlName="name"
+      type="text">
+  </div>
+  <div>
+    <div>
+      <input type="radio" [value]="0" formControlName="stars"> 
+      <strong class="all">Todas las estrellas</strong>
+    </div>
+    <div>
+      <input type="radio" [value]="1" formControlName="stars">
+      <al-star [count]="1"></al-star>
+    </div>
+    <div>
+      <input type="radio" [value]="2" formControlName="stars">
+      <al-star [count]="2"></al-star>
+    </div>
+    <div>
+      <input type="radio" [value]="3" formControlName="stars">
+      <al-star [count]="3"></al-star>
+    </div>
+    <div>
+      <input type="radio" [value]="4" formControlName="stars">
+      <al-star [count]="4"></al-star>
+    </div>
+    <div>
+      <input type="radio" [value]="5" formControlName="stars">
+      <al-star [count]="5"></al-star>
+    </div>
   </div>
 </form>
