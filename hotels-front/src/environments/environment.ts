@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   api: {
     root: 'http://localhost:3000',
-    hotels: 'hotels',
+    hotels: 'hotel',
   }
 };
