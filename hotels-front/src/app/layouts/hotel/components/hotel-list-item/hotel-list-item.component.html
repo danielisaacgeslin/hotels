@@ -6,11 +6,14 @@
     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
       <h6 class="title">{{item.name}}</h6>
       <div><al-star [count]="item.stars"></al-star></div>
+      <span *ngFor="let amenitie of item.amenities">
+        <img class="amenitie" [src]="'/assets/icons/amenities/' + amenitie + '.svg'" [alt]="amenitie">
+      </span>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-      <p class="text-center">Precio por noche por habitación</p>
-      <span>{{item.price | currency: 'ARS': 'code'}}</span>
-      <button target="_blank" href="javascript:void(0);" class="btn btn-primary">Ver hotel</button>
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 visit-col">
+      <p class="text-center"><small>Precio por noche por habitación</small></p>
+      <h5 class="text-center price">{{item.price | currency: 'ARS': 'code'}}</h5>
+      <button target="_blank" href="javascript:void(0);" class="btn btn-primary visit">Ver hotel</button>
     </div>
   </div>
 </article>

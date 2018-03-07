@@ -1,7 +1,20 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~font-awesome/css/font-awesome.min.css";
 @import './variables';
+
+* {
+  scroll-behavior: smooth;
+}
 
 body {
   background-color: $color-light-gray;
-  scroll-behavior: smooth;
+}
+
+.btn-primary {
+  background-color: $color-primary;
+  border-color: $color-tertiary;
+}
+
+p {
+  margin: 0;
 }

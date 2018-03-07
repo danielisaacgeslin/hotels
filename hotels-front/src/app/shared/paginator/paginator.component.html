@@ -1,11 +1,11 @@
 <form class="row" [formGroup]="formGroup">
+  <button [disabled]="pageNumber <= 1" class="btn btn-primary" (click)="goBackwards()"><</button>
+  <div class="text-center col">{{pageNumber}}</div>
+  <button [disabled]="pageNumber >= lastPageNumber" class="btn btn-primary" (click)="goForward()">></button>
   <select formControlName="perPage" class="form-control">
     <option [value]="5">5</option>
     <option [value]="10">10</option>
     <option [value]="20">20</option>
     <option [value]="50">50</option>
   </select>
-  <button [disabled]="pageNumber <= 1" class="btn btn-primary" (click)="goBackwards()"><</button>
-  <div class="text-center col">{{pageNumber}}</div>
-  <button [disabled]="pageNumber >= lastPageNumber" class="btn btn-primary" (click)="goForward()">></button>
 </form>

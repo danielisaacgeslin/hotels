@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 
 import { Hotel } from '../../../../models';
 import { ListRequestArgs } from '../../../../services';
@@ -15,7 +16,10 @@ export class HotelListComponent implements OnInit {
   @Output() requestList: EventEmitter<ListRequestArgs> = new EventEmitter();
   public query: HotelFilter = {};
   public pageNumber: number = 1;
-  public perPage: number = 10;
+  public perPage: number = 5;
+  public filtersVisible: boolean = false;
+
+  constructor(@Inject(DOCUMENT) private document: Document) { }
 
   public ngOnInit(): void {
     this.triggerRequestList();
@@ -23,6 +27,7 @@ export class HotelListComponent implements OnInit {
 
   public triggerRequestList(): void {
     this.requestList.next({ query: this.query, perPage: this.perPage, pageNumber: this.pageNumber });
+    this.scrollToTop();
   }
 
   public onHotelFilterChanged(query: HotelFilter): void {
@@ -37,6 +42,14 @@ export class HotelListComponent implements OnInit {
     else this.pageNumber = event.pageNumber;
     this.perPage = event.perPage;
     this.triggerRequestList();
+  }
+
+  public toggleFilters(): void {
+    this.filtersVisible = !this.filtersVisible;
+  }
+
+  private scrollToTop(): void {
+    this.document.documentElement.scrollTop = 0;
   }
 
 }

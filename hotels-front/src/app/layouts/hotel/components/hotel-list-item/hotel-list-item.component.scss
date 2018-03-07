@@ -1,13 +1,39 @@
 @import '../../../../../variables';
 
 .list-item {
-  @extend %shadow;
-  background-color: $color-white;
-  padding: 5px 10px;
+  @extend %card-container;
   margin-bottom: 10px;
 
   .title {
     font-weight: bold;
     color: $color-tertiary;
+  }
+
+  .amenitie {
+    width: 15px;
+    height: 15px;
+  }
+
+  .price {
+    color: $color-secondary;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .visit-col {
+    border-left: 1px $color-dark-gray dashed;
+
+    .visit {
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 770px) {
+    .visit-col {
+      border-left: 0;
+      border-top: 1px $color-dark-gray dashed;
+      margin-top: 15px;
+      padding-top: 15px;
+    }
   }
 }

@@ -1,35 +1,58 @@
 <form class="form" [formGroup]="formGroup">
-  <div>
-    <input
-      placeholder="Igrese el nombre del hotel"
-      class="form-control"
-      formControlName="name"
-      type="text">
+  <div class="control-container main-title-container">
+    <p class="main-title"><strong>Filtros</strong></p>
   </div>
-  <div>
-    <div>
-      <input type="radio" [value]="0" formControlName="stars"> 
-      <strong class="all">Todas las estrellas</strong>
+  <div class="control-container">
+    <h6 class="small-title" (click)="toggleName()">
+      <img class="search-icon" src="/assets/icons/filters/search.svg">
+      Nombre del hotel
+      <i
+        class="fa float-right"
+        [ngClass]="{ 'fa-caret-up': nameVisible, 'fa-caret-down': !nameVisible }">
+      </i>
+    </h6>
+    <div [hidden]="!nameVisible">
+      <input
+        placeholder="Igrese el nombre del hotel"
+        class="form-control"
+        formControlName="name"
+        type="text">
     </div>
-    <div>
-      <input type="radio" [value]="1" formControlName="stars">
+  </div>
+  <div class="control-container">
+    <h6 class="small-title" (click)="toggleStars()">
       <al-star [count]="1"></al-star>
-    </div>
-    <div>
-      <input type="radio" [value]="2" formControlName="stars">
-      <al-star [count]="2"></al-star>
-    </div>
-    <div>
-      <input type="radio" [value]="3" formControlName="stars">
-      <al-star [count]="3"></al-star>
-    </div>
-    <div>
-      <input type="radio" [value]="4" formControlName="stars">
-      <al-star [count]="4"></al-star>
-    </div>
-    <div>
-      <input type="radio" [value]="5" formControlName="stars">
-      <al-star [count]="5"></al-star>
+      Estrellas
+      <i
+        class="fa float-right"
+        [ngClass]="{ 'fa-caret-up': starsVisible, 'fa-caret-down': !starsVisible }">
+      </i>
+    </h6>
+    <div [hidden]="!starsVisible">
+      <div>
+        <input type="radio" [value]="0" formControlName="stars"> 
+        <strong class="all">Todas las estrellas</strong>
+      </div>
+      <div>
+        <input type="radio" [value]="1" formControlName="stars">
+        <al-star [count]="1"></al-star>
+      </div>
+      <div>
+        <input type="radio" [value]="2" formControlName="stars">
+        <al-star [count]="2"></al-star>
+      </div>
+      <div>
+        <input type="radio" [value]="3" formControlName="stars">
+        <al-star [count]="3"></al-star>
+      </div>
+      <div>
+        <input type="radio" [value]="4" formControlName="stars">
+        <al-star [count]="4"></al-star>
+      </div>
+      <div>
+        <input type="radio" [value]="5" formControlName="stars">
+        <al-star [count]="5"></al-star>
+      </div>
     </div>
   </div>
 </form>

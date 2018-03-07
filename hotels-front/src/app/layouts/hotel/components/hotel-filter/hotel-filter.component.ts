@@ -20,6 +20,8 @@ export class HotelFilterComponent implements OnInit, OnDestroy {
     name: new FormControl(),
     stars: new FormControl()
   });
+  public nameVisible: boolean = true;
+  public starsVisible: boolean = true;
   private destroy$: Subject<void> = new Subject();
 
   public ngOnInit(): void {
@@ -38,5 +40,13 @@ export class HotelFilterComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  public toggleName(): void {
+    this.nameVisible = !this.nameVisible;
+  }
+
+  public toggleStars(): void {
+    this.starsVisible = !this.starsVisible;
   }
 }

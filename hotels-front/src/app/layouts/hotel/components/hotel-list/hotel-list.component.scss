@@ -1,4 +1,27 @@
+@import '../../../../../variables';
+
 .hotel-list {
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.toggle-filters {
+  @extend %card-container;
+  margin-bottom: 10px;
+  display: none;
+  color: $color-tertiary;
+  font-weight: bold;
+}
+
+.paginator {
+  max-width: 150px;
+}
+
+@media(max-width: 770px) {
+  .toggle-filters {
+    display: block;
+  }
+  .hidden-filters {
+    display: none;
+  }
 }
