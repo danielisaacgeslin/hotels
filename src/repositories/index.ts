@@ -1,2 +1,1 @@
-export * from './UserRepository';
-export * from './CurrenciesRepository';
+export * from './HotelRepository';

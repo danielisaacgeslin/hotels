@@ -11,6 +11,7 @@ export class Logger {
   }
 
   private static formatArgs(args: any[]): string {
+    if (args.length <= 1) args = args[0];
     return JSON.stringify(args, null, 4)
   }
 }

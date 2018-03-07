@@ -5,6 +5,7 @@ import * as expressWinston from 'express-winston';
 
 import { ErrorHandler } from './ErrorHandler';
 import { RegisterRoutes } from '../../build/routes';
+import { Logger } from './Logger';
 import '../controllers';
 
 export class Server {
@@ -22,6 +23,7 @@ export class Server {
 
   public listen(port: number = this.port): void {
     this.app.listen(this.port);
+    Logger.log(`listening to port: ${this.port}`);
   }
 
   private allowCors (req: express.Request, res: express.Response, next: express.NextFunction): void {

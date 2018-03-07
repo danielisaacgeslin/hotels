@@ -4,44 +4,125 @@
 		"application/json"
 	],
 	"definitions": {
-		"Rates": {
-			"properties": {},
-			"type": "object"
-		},
-		"ExchangeModel": {
+		"HotelModel": {
 			"properties": {
-				"base": {
-					"type": "string",
-					"default": ""
+				"id": {
+					"type": "string"
 				},
-				"date": {
-					"type": "string",
-					"default": ""
+				"name": {
+					"type": "string"
 				},
-				"rates": {
-					"$ref": "#/definitions/Rates"
+				"stars": {
+					"type": "number",
+					"format": "double"
+				},
+				"price": {
+					"type": "number",
+					"format": "double"
+				},
+				"image": {
+					"type": "string"
+				},
+				"amenities": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
 				},
 				"args": {
-					"$ref": "#/definitions/ExchangeModel"
+					"type": "object"
 				}
 			},
 			"required": [
+				"name",
+				"stars",
+				"price",
+				"image",
+				"amenities",
 				"args"
+			],
+			"type": "object"
+		},
+		"PaginationModel": {
+			"properties": {
+				"count": {
+					"type": "number",
+					"format": "double"
+				},
+				"pageNumber": {
+					"type": "number",
+					"format": "double"
+				},
+				"perPage": {
+					"type": "number",
+					"format": "double"
+				},
+				"list": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					}
+				},
+				"args": {
+					"$ref": "#/definitions/PaginationModel"
+				}
+			},
+			"required": [
+				"count",
+				"pageNumber",
+				"perPage",
+				"list",
+				"args"
+			],
+			"type": "object"
+		},
+		"IHotelModel": {
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"stars": {
+					"type": "number",
+					"format": "double"
+				},
+				"price": {
+					"type": "number",
+					"format": "double"
+				},
+				"image": {
+					"type": "string"
+				},
+				"amenities": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"required": [
+				"name",
+				"stars",
+				"price",
+				"image",
+				"amenities"
 			],
 			"type": "object"
 		}
 	},
 	"info": {
-		"title": "bela-back",
+		"title": "hotels-back",
 		"version": "1.0.0",
 		"license": {
 			"name": "ISC"
 		}
 	},
 	"paths": {
-		"/currency": {
+		"/hotel/{id}": {
 			"get": {
-				"operationId": "Exchange",
+				"operationId": "GetById",
 				"produces": [
 					"application/json"
 				],
@@ -49,53 +130,174 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/ExchangeModel"
-						}
-					}
-				},
-				"security": [
-					{
-						"baseUser": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "base",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "query",
-						"name": "symbols",
-						"required": false,
-						"type": "string"
-					}
-				]
-			}
-		},
-		"/login": {
-			"post": {
-				"operationId": "Exchange",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"schema": {
-							"type": "object"
+							"$ref": "#/definitions/HotelModel"
 						}
 					}
 				},
 				"security": [],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [
+					{
+						"adminUser": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/hotel": {
+			"get": {
+				"operationId": "GetPaginated",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/PaginationModel"
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "hotel",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "pageNumber",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					},
+					{
+						"in": "query",
+						"name": "perPage",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					}
+				]
+			},
+			"post": {
+				"operationId": "Create",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/HotelModel"
+						}
+					}
+				},
+				"security": [
+					{
+						"adminUser": []
+					}
+				],
+				"parameters": [
+					{
 						"in": "body",
-						"name": "body",
+						"name": "hotelParams",
 						"required": true,
 						"schema": {
-							"type": "object"
+							"$ref": "#/definitions/IHotelModel"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/HotelModel"
+						}
+					}
+				},
+				"security": [
+					{
+						"adminUser": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "hotelParams",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IHotelModel"
+						}
+					}
+				]
+			}
+		},
+		"/hotel/batch": {
+			"post": {
+				"operationId": "CreateBatch",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/HotelModel"
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"adminUser": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "hotelParams",
+						"required": true,
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/IHotelModel"
+							},
+							"type": "array"
 						}
 					}
 				]

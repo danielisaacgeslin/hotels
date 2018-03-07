@@ -15,7 +15,7 @@ export class ApiError extends Error {
 export class ErrorHandler {
   public static handleError(error: ApiError, req: Request, res: Response, next: NextFunction): void {
     const { name = 'InternalServerError', message = 'error', statusCode = 500 } = error;
-    Logger.error(error);
+    Logger.error(`Error: ${name}:`, message, error);
     res.status(statusCode).json({ name, message })
     next();
   }

@@ -1,3 +1,2 @@
-export * from './CurrencyController';
-export * from './LoginController';
+export * from './HotelController';
 export * from './PingController';

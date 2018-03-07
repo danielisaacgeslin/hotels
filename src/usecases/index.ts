@@ -1,2 +1,4 @@
-export * from './loginUseCase';
-export * from './getExchangeUseCase';
+export * from './getHotelUseCase';
+export * from './createHotelUseCase';
+export * from './deleteHotelUseCase';
+export * from './updateHotelUseCase';

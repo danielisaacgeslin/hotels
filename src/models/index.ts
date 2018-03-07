@@ -1,2 +1,2 @@
-export * from './UserModel';
-export * from './ExchangeModel';
+export * from './HotelModel';
+export * from './PaginationModel';

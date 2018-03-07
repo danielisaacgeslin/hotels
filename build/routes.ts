@@ -1,31 +1,48 @@
 /* tslint:disable */
 import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 import { iocContainer } from './../src/ioc';
-import { CurrencyController } from './../src/controllers/CurrencyController';
-import { LoginController } from './../src/controllers/LoginController';
+import { CurrencyController } from './../src/controllers/HotelController';
 import { PingController } from './../src/controllers/PingController';
 import { expressAuthentication } from './../src/auth';
 
 const models: TsoaRoute.Models = {
-    "Rates": {
-    },
-    "ExchangeModel": {
+    "HotelModel": {
         "properties": {
-            "base": { "dataType": "string", "default": "" },
-            "date": { "dataType": "string", "default": "" },
-            "rates": { "ref": "Rates", "default": {} },
-            "args": { "ref": "ExchangeModel", "required": true },
+            "id": { "dataType": "string" },
+            "name": { "dataType": "string" },
+            "stars": { "dataType": "double" },
+            "price": { "dataType": "double" },
+            "image": { "dataType": "string" },
+            "amenities": { "dataType": "array", "array": { "dataType": "string" } },
+            "args": { "dataType": "object", "required": true },
+        },
+    },
+    "PaginationModel": {
+        "properties": {
+            "count": { "dataType": "double", "required": true },
+            "pageNumber": { "dataType": "double", "required": true },
+            "perPage": { "dataType": "double", "required": true },
+            "list": { "dataType": "array", "array": { "dataType": "any" }, "required": true },
+            "args": { "ref": "PaginationModel", "required": true },
+        },
+    },
+    "IHotelModel": {
+        "properties": {
+            "id": { "dataType": "string" },
+            "name": { "dataType": "string", "required": true },
+            "stars": { "dataType": "double", "required": true },
+            "price": { "dataType": "double", "required": true },
+            "image": { "dataType": "string", "required": true },
+            "amenities": { "dataType": "array", "array": { "dataType": "string" }, "required": true },
         },
     },
 };
 
 export function RegisterRoutes(app: any) {
-    app.get('/currency',
-        authenticateMiddleware([{ "name": "baseUser" }]),
+    app.get('/hotel/:id',
         function(request: any, response: any, next: any) {
             const args = {
-                base: { "in": "query", "name": "base", "required": true, "dataType": "string" },
-                symbols: { "in": "query", "name": "symbols", "dataType": "string" },
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
 
             let validatedArgs: any[] = [];
@@ -38,13 +55,15 @@ export function RegisterRoutes(app: any) {
             const controller = iocContainer.get<CurrencyController>(CurrencyController);
 
 
-            const promise = controller.exchange.apply(controller, validatedArgs);
+            const promise = controller.getById.apply(controller, validatedArgs);
             promiseHandler(controller, promise, response, next);
         });
-    app.post('/login',
+    app.get('/hotel',
         function(request: any, response: any, next: any) {
             const args = {
-                body: { "in": "body", "name": "body", "required": true, "dataType": "any" },
+                hotelStringified: { "in": "query", "name": "hotel", "required": true, "dataType": "string" },
+                pageNumber: { "in": "query", "name": "pageNumber", "required": true, "dataType": "double" },
+                perPage: { "in": "query", "name": "perPage", "required": true, "dataType": "double" },
             };
 
             let validatedArgs: any[] = [];
@@ -54,10 +73,90 @@ export function RegisterRoutes(app: any) {
                 return next(err);
             }
 
-            const controller = iocContainer.get<LoginController>(LoginController);
+            const controller = iocContainer.get<CurrencyController>(CurrencyController);
 
 
-            const promise = controller.exchange.apply(controller, validatedArgs);
+            const promise = controller.getPaginated.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/hotel',
+        authenticateMiddleware([{ "name": "adminUser" }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                hotelParams: { "in": "body", "name": "hotelParams", "required": true, "ref": "IHotelModel" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = iocContainer.get<CurrencyController>(CurrencyController);
+
+
+            const promise = controller.create.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/hotel/batch',
+        authenticateMiddleware([{ "name": "adminUser" }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                hotelParams: { "in": "body", "name": "hotelParams", "required": true, "dataType": "array", "array": { "ref": "IHotelModel" } },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = iocContainer.get<CurrencyController>(CurrencyController);
+
+
+            const promise = controller.createBatch.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/hotel',
+        authenticateMiddleware([{ "name": "adminUser" }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                hotelParams: { "in": "body", "name": "hotelParams", "required": true, "ref": "IHotelModel" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = iocContainer.get<CurrencyController>(CurrencyController);
+
+
+            const promise = controller.update.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/hotel/:id',
+        authenticateMiddleware([{ "name": "adminUser" }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = iocContainer.get<CurrencyController>(CurrencyController);
+
+
+            const promise = controller.delete.apply(controller, validatedArgs);
             promiseHandler(controller, promise, response, next);
         });
     app.get('/ping',
