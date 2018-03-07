@@ -8,7 +8,8 @@
     "start": "yarn start:dev",
     "start:dev": "yarn build:routes && yarn build:swagger && ts-node-dev --respawn ./src",
     "build:routes": "tsoa routes",
-    "build:swagger": "tsoa swagger"
+    "build:swagger": "tsoa swagger",
+    "build": "yarn build:routes && yarn build:swagger"
   },
   "author": "dgeslin",
   "license": "ISC",
