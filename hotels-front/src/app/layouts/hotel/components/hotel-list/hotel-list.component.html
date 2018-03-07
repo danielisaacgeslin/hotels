@@ -1,2 +1,5 @@
 <div>hotel list</div>
-<div>{{hotelList | json}}</div>
+<al-hotel-filter (filter)="triggerRequestList($event)"></al-hotel-filter>
+<div *ngFor="let item of hotelList">
+  <al-hotel-list-item [item]="item"></al-hotel-list-item>
+</div>

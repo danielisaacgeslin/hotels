@@ -50,6 +50,7 @@ export class HotelRepository {
     }
     Object.keys(query).forEach(key => {
       if (query[key] === undefined) delete query[key];
+      if(typeof query[key] === 'string') query[key] = new RegExp(query[key], 'i');
     });
     return query;
   }

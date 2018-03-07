@@ -1,0 +1,12 @@
+<form [formGroup]="formGroup">
+  <input formControlName="name" type="text">
+  <!-- <input formControlName="stars" type="number"> -->
+  <div>
+    <input type="radio" [value]="0" formControlName="stars">all
+    <input type="radio" [value]="1" formControlName="stars">1
+    <input type="radio" [value]="2" formControlName="stars">2
+    <input type="radio" [value]="3" formControlName="stars">3
+    <input type="radio" [value]="4" formControlName="stars">4
+    <input type="radio" [value]="5" formControlName="stars">5
+  </div>
+</form>
