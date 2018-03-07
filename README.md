@@ -5,7 +5,7 @@
 * * test: `yarn test`
 * * build prod: `@todo`
 
-# Hotels Back Front
+# Hotels Front Test
 * commands
 * * instalation: `yarn install`
 * * dev: `yarn start`
